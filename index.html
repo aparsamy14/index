@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexipac Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    
+        /* Topbar Styles */
+        .topbar {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 23px;
+            font-size: 15px;
+        }
+    
+        .topbar a:hover {
+            color: #007bff;
+        }
+    
+        .topbar div {
+            display: flex;
+            align-items: center;
+        }
+    
+        .topbar i {
+            margin-right: 5px;
+        }
+    
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+    
+        .navbar-brand img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+    
+        .navbar-brand h2 {
+            margin: 0;
+            color: #007bff;
+        }
+    
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+    
+        .navbar-links a {
+            padding: 10px 15px;
+            color: #007bff;
+            border-radius: 5px;
+        }
+    
+        .navbar-links a:hover {
+            background-color: purple;
+            color: white;
+        }
+    
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+    
+        .navbar-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #007bff;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+    
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+    
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+    
+        .carousel-slide {
+            min-width: 100%;
+            flex: 0 0 auto;
+            position: relative;
+        }
+    
+        .carousel-slide img {
+            width: 100%;
+            height: 700px;
+            display: block;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+    
+        .carousel-content {
+            position: absolute;
+            bottom: 230px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(93, 88, 88, 0.6);
+            padding: 20px;
+            padding-bottom: 40px;
+            border-radius: 10px;
+        }
+    
+        .carousel-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+    
+        .carousel-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+    
+        .carousel-content .probtn {
+            margin: 0 10px;
+        }
+    
+        .carousel-prev,
+        .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 100;
+        }
+    
+        .carousel-prev {
+            left: 20px;
+        }
+    
+        .carousel-next {
+            right: 20px;
+        }
+    
+        /* Facts Section */
+        .facts-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 80px;
+            justify-content: center;
+        }
+    
+        .probtn {
+            background-color: #007bff;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+        }
+    
+        .probtn:hover {
+            background-color: purple;
+        }
+    
+        .fact {
+            background: #007bff;
+            padding: 80px;
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(45, 42, 42, 0.582);
+            opacity: 0.8;
+        }
+    
+        .fact img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 10px;
+        }
+    
+        .fact h5 {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #f8f9fa;
+        }
+    
+        .fact p {
+            color: white;
+            text-align: justify;
+        }
+    
+        .about-section {
+            overflow: hidden;
+            margin-right: 200px;
+            height: 600px;
+        }
+    
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1500px;
+            margin-left: 250px;
+        }
+    
+        .about-row {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+    
+        .about-image {
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+    
+        .about-image img {
+            width: 650px;
+            height: 600px;
+            object-fit: cover;
+        }
+    
+        .about-text {
+            display: flex;
+            justify-content: center;
+            margin-right: 300px;
+            position: relative;
+            width: 800px;
+            height: 400px;
+            margin-left: 600px;
+            margin-top: -350px;
+        }
+    
+        .about-text-inner {
+            max-width: 600px;
+        }
+    
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+    
+        .about-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 9999px;
+            text-decoration: none;
+        }
+    
+        .about-button:hover {
+            background-color: purple;
+        }
+.icon {
+  width: 28px;
+  margin-right: 0.7rem;
+}
+
+.social-media {
+  padding: 2rem 0 0 0;
+}
+
+.social-media p {
+  color: #333;
+}
+
+.social-icons {
+  display: flex;
+
+}
+
+.social-icons a {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  background: linear-gradient(45deg, #1abc9c, #149279);
+  color: #fff;
+  text-align: center;
+  line-height: 35px;
+  margin-right: 0.5rem;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.05);
+}
+
+
+.gallery{
+    min-height: 100vh;
+    background:#eee;
+    padding-bottom: 100px;
+}
+
+.gallery .controls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding:20px 0;
+    list-style: none;
+}
+
+.gallery .controls .buttons{
+    height:40px;
+    width: auto;
+    background:#fff;
+    color:#666;
+    font-size: 20px;
+    line-height: 40px;
+    cursor: pointer;
+    margin:20px;
+    box-shadow: 0 3px 5px rgba(0,0,0,.3);
+    text-align: center;
+   background-color: #00ff2a;
+   margin: 20px;
+   padding-left: 10px;
+   padding-right: 10px;
+   border-radius: 10px;
+   
+   flex: auto;
+}
+
+.gallery .controls .buttons.active{
+    background:coral;
+    color:#fff;
+}
+
+.gallery .image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gallery .image-container .image{
+    height:250px;
+    width: 350px;
+    overflow: hidden;
+    border:15px solid #fff;
+    box-shadow: 0 3px 5px rgba(0,0,0,.3);
+    margin: 20px;
+}
+
+.gallery .image-container .image img{
+    height: 100%;
+    width:100%;
+    object-fit: cover;
+}
+
+.gallery .image-container .image:hover img{
+    transform: scale(1.4);}
+    .heading{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+        }
+
+    
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                text-align: left;
+            }
+    
+            .topbar div {
+                margin: 5px 0;
+            }
+    
+            .navbar {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+    
+            .navbar-brand {
+                display: flex;
+                align-items: center;
+            }
+    
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: #f8f9fa;
+                margin-top: 10px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            .navbar-links.active {
+                display: flex;
+            }
+    
+            .carousel-content {
+                width: 100%;
+                max-width: 100%;
+                position: absolute;
+                bottom: 214px;
+                left: 50%;
+               
+               
+            }
+    
+            .carousel-content h1 {
+                font-size: 1.8rem;
+            }
+    
+            .carousel-content p {
+                font-size: 1rem;
+            }
+    
+            .facts-section {
+                flex-direction: column;
+            }
+    
+            .fact {
+                margin-bottom: 10px;
+            }
+            
+        
+    
+            .navbar-toggle {
+                display: flex;
+                align-self: flex-end;
+                margin-top: 10px;
+            }
+    
+            .carousel-slide img {
+                height: 620px;
+            }
+    
+            .about-section {
+                margin-right: 0;
+                height: auto;
+                margin: 0;
+            }
+    
+            .about-container {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 0 20px;
+            }
+    
+            .about-image {
+                width: 100%;
+                height: auto;
+            }
+    
+            .about-image img {
+                width: 100%;
+                height: auto;
+            }
+    
+            .about-text {
+                margin: 0;
+                width: 100%;
+                margin-top: 20px;
+            }
+    
+            h1 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+    
+          
+        }
+    
+   
+        
+        
+    </style>
+</html>   
+<body>
+    <div class="topbar">
+        <div>
+            <i class="fa fa-map-marker-alt" style="color:#65B530;"></i>
+            <span>Ambattur Industrial Estate, Chennai, Tamil Nadu 600095</span>
+        </div>
+        <div>
+            <i class="fa fa-envelope-open "style="color:#65B530;" ></i>
+            <a href="mailto:www.flexipacsolutions.com">www.flexipacsolutions.com</a>
+        </div>
+        <div>
+            <i class="fa fa-phone-alt " style="color:#65B530;"></i>
+            <span>+91-9677388776</span>
+        </div>
+        <div>
+            <i class="far fa-clock" style="color:#65B530;"></i>
+            <span>Mon - Fri : 9AM - 9PM</span>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="/img/logo_flexipac-removebg-preview.png" alt="Flexipac Solutions Logo">
+            <h2 style="color:#65B530;">Flexipac Solutions</h2>
+        </div>
+        <div class="navbar-links" id="navbarLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="#Gallery">Gallery</a>
+            <a href="cap_faci.html">Capabilities & Facilities</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="social-media">
+            <div class="social-icons">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+             </div>
+          </div>
+        <div class="navbar-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-slide">
+                <img src="/img/Company overview.jpeg" alt="Carousel Image 1">
+                <div class="carousel-content">
+                    <h1>Welcome To Flexipac Solutions</h1>
+                    <p>Make your products a great one with our range of packaging solutions</p>
+                    <a href="product.html" class="probtn">Products</a>
+                    <a href="contact.html" class="probtn">Contact Us</a>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/img/IMG_7062.jpeg" alt="Carousel Image 2">
+                <div class="carousel-content">
+                    <h1>Smart Security Solution For All Business</h1>
+                    <p>Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo
+                        clita et kasd rebum sea elitr.</p>
+                    <a href="product.html" class="probtn">Products</a>
+                    <a href="contact.html" class="probtn">Contact Us</a>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/img/IMG_6713.jpeg" alt="Carousel Image 3">
+                <div class="carousel-content">
+                    <h1>Innovative Solution For Security System</h1>
+                    <p>Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo
+                        clita et kasd rebum sea elitr.</p>
+                    <a href="product.html" class="probtn">Products</a>
+                    <a href="contact.html" class="probtn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-prev"><i class="fa fa-chevron-left"></i></button>
+        <button class="carousel-next"><i class="fa fa-chevron-right"></i></button>
+    </div>
+
+    <div class="facts-section">
+        
+        <div class="fact">
+            <img src="img/icon/icon-3.png" alt="Icon">
+            <h1>01</h1>
+            <h5>Our Vision</h5>
+            <hr>
+            <p>Our vision is to redefine the way carton boxes are manufactured and perceived in the market. We aim to
+                become a symbol of reliability, creativity, and sustainability in the packaging industry. Through our
+                commitment to innovation, exceptional customer service, and environmental responsibility, we strive to
+                set new benchmarks for the industry.</p>
+        </div>
+        <div class="fact">
+            <img src="img/icon/icon-4.png" alt="Icon">
+            <h1>02</h1>
+            <h5>Our Mission</h5>
+            <hr>
+            <p>At FLEXIPAC, our mission is to provide our clients with tailor-made carton box solutions that align
+                with their unique requirements. We understand that packaging plays a pivotal role in brand
+                representation and product protection. Therefore, we are dedicated to crafting boxes that not only meet
+                industry standards but also exceed our clients' expectations.</p>
+        </div>
+        <div class="fact">
+            <img src="img/icon/icon-2.png" alt="Icon">
+            <h1>03</h1>
+            <h5>Our Values</h5>
+            <hr>
+            <p>We are committed to enhancing customer satisfaction through on-time completion of projects and services
+                at competitive prices. This will be achieved by exercising the following principles in all processes and
+                activities: Quality through process, Cost Effectiveness, On-time Delivery, Innovation, and Continual
+                Improvement.</p>
+        </div>
+    </div>
+    <!-- About Start -->
+    <div class="about-section">
+        <div class="about-container">
+            <div class="about-row">
+                <div class="about-image">
+                    <img src="/img/Company overview.jpeg" alt="About Us">
+                </div>
+                <div class="about-text">
+                    <div class="about-text-inner">
+                        <div class="about-divider"></div>
+                        <h1>About Us</h1>
+                        <p>
+                            At FLEXIPAC Solutions, we are excited to embark on a journey that celebrates innovation, craftsmanship, and excellence in the field of carton box manufacturing. As a newly established unit, we bring together a passionate team of experts who are dedicated to creating high-quality packaging solutions that cater to a diverse range of industries and businesses.
+                            We FLEXIPAC Solutions, one of the reliable organizations, are engaged in manufacturing a variety of boxes of various ranges.
+                        </p>
+                        <a href="product.html" class="about-button">Explore More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="heading">Our Gallery</h1>
+
+    <div class="gallery">
+
+        
+        <div class="image-container">
+    
+            <a href="/img/IMG_6642.jpg" class="image ice-cream">
+                <img src="/img/IMG_6642.jpg" alt="">
+            </a>
+            <a href="/img/IMG_6648.jpg" class="image ice-cream">
+                <img src="/img/IMG_6648.jpg" alt="">
+            </a>
+            <a href="images/ice-cream3.jpg" class="image ice-cream">
+                <img src="images/ice-cream3.jpg" alt="">
+            </a>
+    
+            <a href="images/chocolate1.jpg" class="image chocolate">
+                <img src="images/chocolate1.jpg" alt="">
+            </a>
+            <a href="images/chocolate2.jpg" class="image chocolate">
+                <img src="images/chocolate2.jpg" alt="">
+            </a>
+    
+            <a href="images/cake1.jpg" class="image cake">
+                <img src="images/cake1.jpg" alt="">
+            </a>
+            <a href="images/cake2.jpg" class="image cake">
+                <img src="images/cake2.jpg" alt="">
+            </a>
+            <a href="images/cake3.jpg" class="image cake">
+                <img src="images/cake3.jpg" alt="">
+            </a>
+            <a href="images/cake4.jpg" class="image cake">
+                <img src="images/cake4.jpg" alt="">
+            </a>
+            <a href="images/cake5.jpg" class="image cake">
+                <img src="images/cake5.jpg" alt="">
+            </a>
+    
+
+    <script>
+        function toggleMenu() {
+            const navbarLinks = document.getElementById("navbarLinks");
+            navbarLinks.classList.toggle("active");
+        }
+
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const prevButton = document.querySelector('.carousel-prev');
+        const nextButton = document.querySelector('.carousel-next');
+
+        function showSlide(index) {
+            if (index < 0) {
+                currentIndex = totalSlides - 1;
+            } else if (index >= totalSlides) {
+                currentIndex = 0;
+            } else {
+                currentIndex = index;
+            }
+
+            const slideWidth = slides[currentIndex].clientWidth;
+            const offset = -currentIndex * slideWidth;
+
+            document.querySelector('.carousel').style.transform = `translateX(${offset}px)`;
+        }
+
+        prevButton.addEventListener('click', () => {
+            showSlide(currentIndex - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            showSlide(currentIndex + 1);
+        });
+
+        // Swipe Gesture for Mobile Devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleGesture() {
+            if (touchEndX < touchStartX) {
+                showSlide(currentIndex + 1);
+            }
+            if (touchEndX > touchStartX) {
+                showSlide(currentIndex - 1);
+            }
+        }
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        // Initial slide
+        showSlide(currentIndex);
+    </script>
+</body>
+
+</html>
